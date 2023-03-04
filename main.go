@@ -55,7 +55,10 @@ func main() {
 			fatal(err)
 
 			if d.Name()[0] == '.' {
-				return fs.SkipDir
+				if d.IsDir() {
+					return fs.SkipDir
+				}
+				return nil
 			}
 
 			if _, ln := link(d.Name()); ln || !d.IsDir() {
