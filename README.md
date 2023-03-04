@@ -20,8 +20,6 @@ Filenames and dirs beginning with a literal `.` (such as `.git`, `.gitignore`) a
 ## Example
 
 ```
-.
-
 ├── dot-bash_profile
 ├── dot-bashrc
 ├── dot-config
