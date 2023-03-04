@@ -59,7 +59,6 @@ func main() {
 			}
 
 			if _, ln := link(d.Name()); ln || !d.IsDir() {
-
 				sourceEntryParts := strings.Split(sourceEntry, string(os.PathSeparator))
 				sourceTailParts := sourceEntryParts[len(sourceDirParts):]
 				targetTailParts := make([]string, len(sourceTailParts))
