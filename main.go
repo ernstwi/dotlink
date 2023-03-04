@@ -118,9 +118,14 @@ func main() {
 
 			if rm { // Remove symlink
 				// Verify it is pointing to sourceDir
+				if _, err := os.Stat(targetEntry); err != nil {
+					fmt.Println("Does not exist")
+					fmt.Println()
+				}
 				unlinked, err := filepath.EvalSymlinks(targetEntry)
 				fatal(err)
 				abs, err := filepath.Abs(unlinked)
+				fatal(err)
 				if !sliceHasPrefix(strings.Split(abs, string(os.PathSeparator)), sourceDirParts) {
 					fmt.Println("Not pointing to source")
 				} else {
