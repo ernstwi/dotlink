@@ -121,6 +121,7 @@ func main() {
 				if _, err := os.Stat(targetEntry); err != nil {
 					fmt.Println("Does not exist")
 					fmt.Println()
+					return nil
 				}
 				unlinked, err := filepath.EvalSymlinks(targetEntry)
 				fatal(err)
