@@ -113,14 +113,11 @@ func main() {
 				{"/"},
 				targetDirParts,
 				targetTailParts})...)
-			fmt.Println(sourceEntry)
-			fmt.Println(targetEntry)
 
 			if rm { // Remove symlink
 				// Verify it is pointing to sourceDir
 				if _, err := os.Stat(targetEntry); err != nil {
-					fmt.Println("Does not exist")
-					fmt.Println()
+					fmt.Printf("%s: does not exist\n", targetEntry)
 					return nil
 				}
 				unlinked, err := filepath.EvalSymlinks(targetEntry)
@@ -128,17 +125,16 @@ func main() {
 				abs, err := filepath.Abs(unlinked)
 				fatal(err)
 				if !sliceHasPrefix(strings.Split(abs, string(os.PathSeparator)), sourceDirParts) {
-					fmt.Println("Not pointing to source")
+					fmt.Printf("%s: not pointing to source\n", targetEntry)
 				} else {
 					fatal(os.Remove(targetEntry))
 				}
 			} else { // Create symlink
 				fatal(os.MkdirAll(filepath.Dir(targetEntry), 0777))
 				if err := os.Symlink(sourceEntry, targetEntry); err != nil {
-					fmt.Println("exists")
+					fmt.Printf("%s: exists\n", targetEntry)
 				}
 			}
-			fmt.Println()
 
 			// Do not recurse into subdirs
 			if d.IsDir() {
